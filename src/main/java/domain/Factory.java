@@ -1,12 +1,11 @@
 package domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Factory {
@@ -15,15 +14,26 @@ public class Factory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    String continent;
-    String country;
+   private String continent;
+   private String country;
+
+   @OneToMany
+   @JoinColumn(name = "publisher_id")
+   private Set<Model> models = new HashSet<>();
 
     public Factory(){
     }
-    public Factory(long id, String continent, String country) {
-        this.id = id;
+    public Factory(String continent, String country) {
         this.continent = continent;
         this.country = country;
+    }
+
+    public Set<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(Set<Model> models) {
+        this.models = models;
     }
 
     public long getId() {

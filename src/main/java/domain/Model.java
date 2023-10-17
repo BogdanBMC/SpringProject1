@@ -18,6 +18,8 @@ public class Model {
 
     public static int modelCounting;
 
+    @ManyToOne
+    private Factory factory;
 
     //db table many2many relation
     @ManyToMany
@@ -26,7 +28,7 @@ public class Model {
     private Set<Manufacturer> manufacturers = new HashSet<>();
 
 
-    //constructors and noArg constructor necessary for dependency
+    //constructors and noArg constructor
     public  Model(){
 
     }
@@ -35,6 +37,14 @@ public class Model {
         this.modelName=modelName;
         this.color=color;
         modelCounting++;
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
     }
 
     //setters
@@ -83,8 +93,6 @@ class which simply checks if two Object references (say x and y) refer to the sa
  of that class w.r.t state of the Objects. That means data members (i.e. fields) of Objects are to be compared
   with one another. Such Comparison based on data members is known as deep comparison.
  */
-
-    //checks if object is not null and is from the correct class  //compares object field, in this case id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
